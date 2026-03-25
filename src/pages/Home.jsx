@@ -1,62 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import "../styles/pages/_Home.scss";
 import { logout, getProductosPorCategoria } from "../services/api";
-
-// ── Hook reveal al scroll ───────────────────────────────────────────────────
-const useReveal = (threshold = 0.15) => {
-    const ref = useRef(null);
-    const [visible, setVisible] = useState(false);
-    useEffect(() => {
-        const obs = new IntersectionObserver(
-            ([e]) => { if (e.isIntersecting) setVisible(true); },
-            { threshold }
-        );
-        if (ref.current) obs.observe(ref.current);
-        return () => obs.disconnect();
-    }, []);
-    return [ref, visible];
-};
-
-// ── Navbar ──────────────────────────────────────────────────────────────────
-const Navbar = () => {
-    const [scrolled, setScrolled] = useState(false);
-    const [open, setOpen]         = useState(false);
-
-    useEffect(() => {
-        const fn = () => setScrolled(window.scrollY > 40);
-        window.addEventListener("scroll", fn);
-        return () => window.removeEventListener("scroll", fn);
-    }, []);
-
-    const handleLogout = async () => {
-        await logout();
-        window.location.href = "/login";
-    };
-
-    return (
-        <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
-            <div className="navbar-inner">
-                <a href="#" className="navbar-logo">
-                    <span className="logo-mark">M</span>
-                    <span className="logo-text">MAISON<em>LUX</em></span>
-                </a>
-
-                <ul className={`navbar-links ${open ? "open" : ""}`}>
-                    {[["Colecciones","#categorias"],["Dama","#dama"],["Caballero","#caballero"],["Niños","#ninos"],["Contacto","#contacto"]].map(([label, href]) => (
-                        <li key={label}><a href={href} onClick={() => setOpen(false)}>{label}</a></li>
-                    ))}
-                </ul>
-
-                <div style={{ display:"flex", alignItems:"center", gap:16 }}>
-                    <button className="navbar-cta" onClick={handleLogout}>Cerrar sesión</button>
-                    <button className={`navbar-hamburger ${open ? "open" : ""}`} onClick={() => setOpen(!open)}>
-                        <span/><span/><span/>
-                    </button>
-                </div>
-            </div>
-        </nav>
-    );
-};
+import useReveal from "../hooks/useReveal";
+import NavBar from "../components/layout/NavBar";
 
 // ── Hero ────────────────────────────────────────────────────────────────────
 const Hero = () => (
@@ -264,7 +210,7 @@ const Footer = () => (
 // ── Page ─────────────────────────────────────────────────────────────────────
 export const Home = () => (
     <div className="page">
-        <Navbar /><Hero /><Strip /><Categories /><Highlights /><Cta /><Footer />
+        <NavBar /><Hero /><Strip /><Categories /><Highlights /><Cta /><Footer />
     </div>
 );
 
