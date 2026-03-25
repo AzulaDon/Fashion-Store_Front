@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import "../styles/_Home.scss";
+import "../styles/pages/_Home.scss";
 import { logout, getProductosPorCategoria } from "../services/api";
 
 // ── Hook reveal al scroll ───────────────────────────────────────────────────
