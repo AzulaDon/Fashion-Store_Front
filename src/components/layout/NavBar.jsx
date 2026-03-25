@@ -9,6 +9,12 @@ const Navbar = () => {
     const scrolled = useScrolled(80)
     const [open, setOpen] = useState(false);
 
+    const links = [
+        { to: "/colecciones", label: "COLECCIONES" },
+        { to: "/dama", label: "DAMA"},
+        { to: "/caballero", label: "CABALLERO"},
+    ];
+
     return (
         <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
             <div className="navbar-inner">
@@ -18,9 +24,11 @@ const Navbar = () => {
                 </Link>
 
                 <ul className={`navbar-links ${open ? "open" : ""}`}>
-                    <li><Link to="/colecciones" onClick={() => setMenuOpen(false)}>COLECCIONES</Link></li>
-                    <li><Link to="/dama" onClick={() => setMenuOpen(false)}>DAMA</Link></li>
-                    {/* le voy a cambiar algo aqui */}
+                    {links.map(({ to, label }) => (
+                        <li key={to}>
+                            <Link to={to} onClick={() => setOpen(false)}>{label}</Link>
+                        </li>
+                    ))}
                 </ul>
 
                 <div className="navbar-actions">
@@ -29,7 +37,7 @@ const Navbar = () => {
                     </button>
 
                     <button className="icon-btn" aria-label="Cart">
-                        <CiShoppingCart />
+                        <CiShoppingCart/>
                     </button>
 
                     <button className="icon-btn" aria-label="Account">
@@ -37,7 +45,7 @@ const Navbar = () => {
                     </button>
 
                     <button 
-                        className={'navbar-hamburger ${open ? "open" : ""}'}
+                        className={`navbar-hamburger ${open ? "open" : ""}`}
                         onClick={() => setOpen(!open)}
                         aria-label="Toggle menu"
                     >

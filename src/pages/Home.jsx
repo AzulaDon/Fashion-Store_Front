@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import "../styles/pages/_Home.scss";
 import { logout, getProductosPorCategoria } from "../services/api";
-import { useReveal } from "../hooks";
+import useReveal from "../hooks/useReveal";
+import NavBar from "../components/layout/NavBar";
 
 // ── Hero ────────────────────────────────────────────────────────────────────
 const Hero = () => (
@@ -209,7 +210,7 @@ const Footer = () => (
 // ── Page ─────────────────────────────────────────────────────────────────────
 export const Home = () => (
     <div className="page">
-        <Navbar /><Hero /><Strip /><Categories /><Highlights /><Cta /><Footer />
+        <NavBar /><Hero /><Strip /><Categories /><Highlights /><Cta /><Footer />
     </div>
 );
 

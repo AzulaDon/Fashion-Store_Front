@@ -1,6 +1,6 @@
 import { useState } from "react";
 import logo from "../logo.svg";
-import "../styles/_Signup.scss";
+import "../styles/pages/_Signup.scss";
 import { login, register } from "../services/api";
 
 // ── Fondos animados ─────────────────────────────────────────────────────────

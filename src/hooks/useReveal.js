@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const useReveal = (threshold = 0.15) => {
     const ref = useRef(null);
@@ -14,7 +14,7 @@ const useReveal = (threshold = 0.15) => {
         return () => obs.disconnect();
 
     }, []);
-    
+
     return [ref, visible];
 };
 
