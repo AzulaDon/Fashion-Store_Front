@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import "../styles/pages/_Home.scss";
+import "../styles/main.scss";
 import { logout, getProductosPorCategoria } from "../services/api";
 import useReveal from "../hooks/useReveal";
 import NavBar from "../components/layout/NavBar";
