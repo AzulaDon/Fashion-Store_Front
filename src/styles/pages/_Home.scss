@@ -16,6 +16,7 @@ body  { background: $dark; color: $text; font-family: $sans; -webkit-font-smooth
     em { font-style: italic; font-weight: 300; color: $gold-soft; }
 }
 .reveal { @include reveal-base; }
+
     
 // ── Responsive ─────────────────────────────────────────────────────────────
 @include respond-to-md {
