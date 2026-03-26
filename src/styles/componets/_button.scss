@@ -1,3 +1,6 @@
+// src/styles/componets/_button.scss
+@use '../abstracts/variables' as *;
+
 // Botones
 %btn { @include btn-base; }
 

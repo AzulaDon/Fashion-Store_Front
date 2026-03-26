@@ -1,16 +1,12 @@
-//partes en especifico
+// src/styles/main.scss
 
-//components 
-@forward '.componets/navbar';
-@forward '.componets/button';
-@forward '.componets/cards';
-@forward '.componets/footer';
-@forward '.componets/highlights';
-@forward '.componets/marquee';
+// ── Componentes ────────────────────────────────────────────────────────────
+@forward './componets/button';
+@forward './componets/cards';
+@forward './componets/footer';
+@forward './componets/highlights';
+@forward './componets/marquee';
 
-//paginas completas en casos especificos
-
-@forward '.pages/Home';
-@forward '.pages/Signup';
-
-//reutilizar
+// ── Páginas ────────────────────────────────────────────────────────────────
+@forward './pages/Home';
+@forward './pages/Signup';

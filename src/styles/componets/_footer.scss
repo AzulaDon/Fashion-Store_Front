@@ -1,4 +1,5 @@
 // ── Footer ─────────────────────────────────────────────────────────────────
+@use '../abstracts/variables' as *;
 .footer {
     border-top: 1px solid $border; padding: 68px $pad-x 32px;
 
