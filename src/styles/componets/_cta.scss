@@ -1,0 +1,9 @@
+// ── CTA ────────────────────────────────────────────────────────────────────
+.cta {
+    padding: $section-y $pad-x; text-align: center;
+
+    > div { @include reveal-base; }
+
+    .eyebrow { margin-bottom: 14px; }
+    .serif-title { font-size: clamp(38px, 6vw, 70px); margin-bottom: 36px; }
+}
