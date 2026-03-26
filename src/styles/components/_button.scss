@@ -1,0 +1,22 @@
+// src/styles/componets/_button.scss
+@use '../abstracts/variables' as *;
+
+// Botones
+%btn { @include btn-base; }
+
+.btn-solid {
+    @extend %btn;
+    padding: 12px 32px;
+    background: $gold;
+    color: $dark;
+    &:hover { background: $gold-soft; transform: translateY(-2px); }
+}
+
+.btn-ghost {
+    @extend %btn;
+    padding: 11px 28px;
+    background: transparent;
+    border: 1px solid rgba($gold, 0.35);
+    color: $gold;
+    &:hover { border-color: $gold; background: rgba($gold, 0.06); }
+}

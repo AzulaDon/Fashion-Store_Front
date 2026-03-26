@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home }   from './pages/Home';
 import { Signup } from './pages/Signup';
+import GenderSelector from './pages/GenderSelector';
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Routes>
         <Route path="/"      element={<Home />} />
         <Route path="/login" element={<Signup />} />
+        <Route path="/select-gender" element={<GenderSelector />} />
       </Routes>
     </BrowserRouter>
   );

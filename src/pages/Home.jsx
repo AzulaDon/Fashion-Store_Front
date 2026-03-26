@@ -1,198 +1,133 @@
-import { useState, useEffect, useRef } from "react";
-import "../styles/pages/_Home.scss";
-import { logout, getProductosPorCategoria } from "../services/api";
-import useReveal from "../hooks/useReveal";
+import { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import "../styles/main.scss";
+
+import Categories from "../components/home/Categories";
+import Highlights from "../components/home/Highlights";
+import Cta from "../components/home/Cta";
 import NavBar from "../components/layout/NavBar";
+import Hero from "../components/layout/HeroBanner";
+import Footer from "../components/layout/Footer";
+import Strip from "../components/home/strip";
 
-// ── Marquee strip ───────────────────────────────────────────────────────────
-const Strip = () => {
-    const items = ["Envío gratis en compras +$999","Nueva colección disponible","Devoluciones sin costo · 30 días","Materiales premium garantizados"];
-    const all   = [...items, ...items];
-    return (
-        <div className="strip">
-            <div className="strip-inner">
-                {all.map((t, i) => <span key={i}>{t} &nbsp;·&nbsp;</span>)}
-            </div>
-        </div>
-    );
+// ── CONFIG DINÁMICA ─────────────────────────
+
+const HERO_CONTENT = {
+  hombre: {
+    eyebrow: "Colección Caballero · 2025",
+    title: "Estilo que define\ncarácter.",
+    subtitle: "Elegancia masculina moderna para cada ocasión.",
+  },
+  mujer: {
+    eyebrow: "Colección Dama · 2025",
+    title: "El arte de\nresaltar tu esencia.",
+    subtitle: "Moda femenina que inspira cada momento.",
+  },
 };
 
-// ── Patrones SVG ────────────────────────────────────────────────────────────
-const Patterns = {
-    circles: (accent) => (
-        <svg viewBox="0 0 300 230" fill="none">
-            {[120, 80, 40].map(r => <circle key={r} cx="150" cy="115" r={r} stroke={accent} strokeWidth="0.5" opacity="0.25" />)}
-            <circle cx="240" cy="40" r="40" stroke={accent} strokeWidth="0.5" opacity="0.15" />
-        </svg>
-    ),
-    lines: (accent) => (
-        <svg viewBox="0 0 300 230" fill="none">
-            {[0,1,2,3,4,5].map(i => <line key={i} x1={i*60-10} y1="0" x2={i*60+220} y2="230" stroke={accent} strokeWidth="0.5" opacity="0.18" />)}
-            <rect x="40" y="30" width="220" height="170" stroke={accent} strokeWidth="0.5" opacity="0.18" />
-        </svg>
-    ),
-    dots: (accent) => (
-        <svg viewBox="0 0 300 230" fill="none">
-            {[...Array(8)].map((_,r) => [...Array(9)].map((_,c) =>
-                <circle key={`${r}-${c}`} cx={18+c*34} cy={16+r*28} r="1.5" fill={accent} opacity="0.22" />
-            ))}
-        </svg>
-    ),
+const STRIP_DATA = {
+  hombre: [
+    "Envío gratis en compras +$999",
+    "Nueva colección masculina",
+    "Estilo premium garantizado"
+  ],
+  mujer: [
+    "Nueva colección femenina",
+    "Envío express disponible",
+    "Moda exclusiva 2025"
+  ]
 };
 
-// ── Datos de categorías ─────────────────────────────────────────────────────
-const CATS = [
-    { id:"dama",      label:"Dama",      tag:"Colección Femenina",  accent:"#c9a96e", bg:"linear-gradient(160deg,#1a1208,#3d2a12)", pattern:"circles", desc:"Elegancia que se adapta a cada instante. Desde looks de oficina hasta outfits de noche.", items:["Vestidos","Blusas","Faldas","Accesorios"] },
-    { id:"caballero", label:"Caballero", tag:"Colección Masculina", accent:"#8da8b8", bg:"linear-gradient(160deg,#0d1218,#1a2a38)", pattern:"lines",   desc:"Estilo sobrio y contemporáneo. Trajes, casualwear y accesorios de alta calidad.",       items:["Trajes","Camisas","Pantalones","Corbatas"] },
-    { id:"ninos",     label:"Niños",     tag:"Colección Infantil",  accent:"#b8a88d", bg:"linear-gradient(160deg,#15120c,#2c2415)", pattern:"dots",    desc:"Comodidad y estilo para los más pequeños. Ropa que dura y que encanta.",               items:["Conjuntos","Vestidos","Casual","Escolar"] },
-];
+const CATS = {
+  hombre: [
+    {
+      id: "camisas",
+      label: "Camisas",
+      tag: "Estilo formal",
+      accent: "#8da8b8",
+      bg: "linear-gradient(160deg,#0d1218,#1a2a38)",
+      desc: "Camisas elegantes y casuales.",
+      items: ["Formal", "Casual", "Slim fit"],
+      pattern: "lines",
+    },
+    {
+      id: "pantalones",
+      label: "Pantalones",
+      tag: "Comodidad total",
+      accent: "#6e7f80",
+      bg: "linear-gradient(160deg,#111,#2b2b2b)",
+      desc: "Diseño moderno con comodidad.",
+      items: ["Jeans", "Chinos", "Vestir"],
+      pattern: "circles",
+    },
+  ],
 
-// ── Card de categoría con fetch al backend ───────────────────────────────────
-const CatCard = ({ cat, index }) => {
-    const [ref, visible]     = useReveal();
-    const [productos, setProductos] = useState([]);
-
-    // Al montar, carga los productos de esta categoría desde Spring Boot
-    useEffect(() => {
-        getProductosPorCategoria(cat.id)
-            .then(data => setProductos(data))
-            .catch(() => {}); // silencia si el endpoint aún no existe
-    }, [cat.id]);
-
-    return (
-        <div
-            ref={ref}
-            id={cat.id}
-            className={`cat-card ${visible ? "visible" : ""}`}
-            style={{ "--accent": cat.accent, transitionDelay:`${index * 0.12}s` }}
-        >
-            <div className="cat-card-visual">
-                <div className="cat-card-visual-bg" style={{ background: cat.bg }} />
-                {Patterns[cat.pattern](cat.accent)}
-                <div className="cat-card-visual-overlay" />
-                <span className="cat-card-num">0{index + 1}</span>
-            </div>
-            <div className="cat-card-body">
-                <p className="cat-card-tag">{cat.tag}</p>
-                <h3 className="cat-card-title">{cat.label}</h3>
-                <p className="cat-card-desc">{cat.desc}</p>
-                <ul className="cat-card-tags">
-                    {cat.items.map(i => <li key={i}>{i}</li>)}
-                </ul>
-                {/* Muestra conteo de productos si el back responde */}
-                {productos.length > 0 && (
-                    <p style={{ fontSize:"10px", color:"var(--accent)", letterSpacing:"0.1em", marginTop:4 }}>
-                        {productos.length} piezas disponibles
-                    </p>
-                )}
-                <a href="#" className="cat-card-link">
-                    Ver colección
-                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                        <path d="M2 6.5h9M7.5 3l3.5 3.5-3.5 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    );
+  mujer: [
+    {
+      id: "vestidos",
+      label: "Vestidos",
+      tag: "Elegancia femenina",
+      accent: "#c9a96e",
+      bg: "linear-gradient(160deg,#1a1208,#3d2a12)",
+      desc: "Vestidos para cualquier ocasión.",
+      items: ["Casual", "Fiesta", "Formal"],
+      pattern: "circles",
+    },
+    {
+      id: "blusas",
+      label: "Blusas",
+      tag: "Estilo versátil",
+      accent: "#b76e79",
+      bg: "linear-gradient(160deg,#1a0f14,#3a1f28)",
+      desc: "Looks elegantes y modernos.",
+      items: ["Casual", "Elegante", "Office"],
+      pattern: "dots,"
+    },
+  ],
 };
 
-// ── Sección categorías ──────────────────────────────────────────────────────
-const Categories = () => {
-    const [ref, visible] = useReveal();
-    return (
-        <section className="categories" id="categorias">
-            <div ref={ref} className={`section-header reveal ${visible ? "visible" : ""}`}>
-                <p className="eyebrow">Nuestras colecciones</p>
-                <h2 className="serif-title">Moda para<br /><em>toda la familia</em></h2>
-                <p className="section-sub">Tres universos de estilo, una sola boutique.</p>
-            </div>
-            <div className="cat-grid">
-                {CATS.map((cat, i) => <CatCard key={cat.id} cat={cat} index={i} />)}
-            </div>
-        </section>
-    );
-};
+// ── COMPONENTE ─────────────────────────
 
-// ── Highlights ──────────────────────────────────────────────────────────────
-const Highlights = () => {
-    const [ref, visible] = useReveal();
-    const items = [
-        { n:"01", title:"Selección curada",  desc:"Cada pieza pasa por un proceso de selección riguroso antes de llegar a ti." },
-        { n:"02", title:"Tallas inclusivas", desc:"Ropa para todos los cuerpos. Porque el estilo no tiene restricciones." },
-        { n:"03", title:"Envío express",     desc:"Recibe tu pedido en 24–48 hrs. Sin excusas, sin demoras." },
-        { n:"04", title:"Asesoría personal", desc:"Nuestros estilistas te ayudan a armar el look perfecto para cada ocasión." },
-    ];
-    return (
-        <section className="highlights">
-            <div ref={ref} className={`highlights-inner ${visible ? "visible" : ""}`}>
-                <div>
-                    <p className="eyebrow">¿Por qué elegirnos?</p>
-                    <h2 className="serif-title">Calidad que<br /><em>se siente.</em></h2>
-                </div>
-                <div className="highlights-grid">
-                    {items.map(({ n, title, desc }) => (
-                        <div key={n} className="highlights-item">
-                            <span className="num">{n}</span>
-                            <h4>{title}</h4>
-                            <p>{desc}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
-};
+export const Home = () => {
+//   const [gender, setGender] = useState(null);
 
-// ── CTA ─────────────────────────────────────────────────────────────────────
-const Cta = () => {
-    const [ref, visible] = useReveal();
-    return (
-        <section className="cta">
-            <div ref={ref} className={`reveal ${visible ? "visible" : ""}`}>
-                <p className="eyebrow">Empieza hoy</p>
-                <h2 className="serif-title">Tu próximo look<br /><em>te está esperando.</em></h2>
-                <a href="/login" className="btn-solid">Crear mi cuenta</a>
-            </div>
-        </section>
-    );
-};
+//   useEffect(() => {
+//     const g = localStorage.getItem("gender");
+//     setGender(g);
+//   }, []);
+  const gender = localStorage.getItem("gender");
 
-// ── Footer ───────────────────────────────────────────────────────────────────
-const Footer = () => (
-    <footer className="footer" id="contacto">
-        <div className="footer-inner">
-            <div>
-                <a href="#" className="navbar-logo" style={{ display:"inline-flex", marginBottom:12 }}>
-                    <span className="logo-mark">M</span>
-                    <span className="logo-text">MAISON<em>LUX</em></span>
-                </a>
-                <p className="footer-tagline">El arte de vestir bien,<br />al alcance de todos.</p>
-            </div>
-            <div className="footer-cols">
-                {[
-                    { heading:"Colecciones", links:["Dama","Caballero","Niños","Novedades"] },
-                    { heading:"Empresa",     links:["Nosotros","Sustentabilidad","Blog","Trabaja con nosotros"] },
-                    { heading:"Ayuda",       links:["Envíos y devoluciones","Guía de tallas","Preguntas frecuentes","Contacto"] },
-                ].map(({ heading, links }) => (
-                    <div key={heading} className="footer-col">
-                        <h5>{heading}</h5>
-                        <ul>{links.map(l => <li key={l}><a href="#">{l}</a></li>)}</ul>
-                    </div>
-                ))}
-            </div>
-        </div>
-        <div className="footer-bottom">
-            <p>© 2025 MaisonLux. Todos los derechos reservados.</p>
-            <p>Diseñado con cuidado · México</p>
-        </div>
-    </footer>
-);
+  console.log("Render home:", gender);
 
-// ── Page ─────────────────────────────────────────────────────────────────────
-export const Home = () => (
+  if (!gender) return <Navigate to="/select-gender" />;
+
+  const heroData = HERO_CONTENT[gender];
+  const stripData = STRIP_DATA[gender];
+  const categories = CATS[gender];
+
+  return (
     <div className="page">
-        <NavBar /><Hero /><Strip /><Categories /><Highlights /><Cta /><Footer />
+
+      <NavBar />
+
+      <Hero
+        eyebrow={heroData.eyebrow}
+        title={heroData.title}
+        subtitle={heroData.subtitle}
+      />
+
+      <Strip items={stripData} />
+
+      <Categories cats={categories} />
+
+      <Highlights />
+
+      <Cta />
+
+      <Footer />
+
     </div>
-);
+  );
+};
 
 export default Home;

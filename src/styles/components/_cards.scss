@@ -1,0 +1,70 @@
+// ── Categories ─────────────────────────────────────────────────────────────
+@use '../abstracts/variables' as *;
+.categories {
+    max-width: 1320px; margin: 0 auto; padding: $section-y $pad-x;
+}
+
+.section-header {
+    text-align: center; margin-bottom: 64px;
+    .serif-title { margin: 12px 0 14px; }
+    .section-sub { font-size: 13px; font-weight: 300; color: $muted; }
+}
+
+.cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+
+.cat-card {
+    background: $dark-2; border: 1px solid $border; overflow: hidden;
+    @include reveal-base;
+    transition: border-color 0.3s, opacity 0.7s ease, translate 0.7s ease;
+    &:hover { border-color: rgba($gold, 0.3); }
+
+    // Visual
+    &-visual {
+        position: relative; height: 230px; overflow: hidden;
+
+        &-bg { position: absolute; inset: 0; transition: transform 0.6s ease; }
+        svg  { position: absolute; inset: 0; width: 100%; height: 100%; transition: transform 0.6s ease; }
+        &-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba($dark, 0.85), transparent 60%); }
+    }
+
+    &:hover .cat-card-visual-bg { transform: scale(1.05); }
+    &:hover .cat-card-visual svg { transform: scale(1.08) rotate(2deg); }
+
+    &-num {
+        position: absolute; top: 16px; right: 20px;
+        font-family: $serif; font-size: 46px; font-weight: 300;
+        color: rgba($gold, 0.1); line-height: 1;
+    }
+
+    // Body
+    &-body {
+        padding: 26px 30px 30px;
+        display: flex; flex-direction: column; gap: 9px;
+    }
+
+    &-tag  { @include eyebrow; font-size: 8.5px; color: var(--accent, #{$gold}); }
+    &-title { font-family: $serif; font-size: 30px; font-weight: 600; color: $text; line-height: 1; }
+    &-desc { font-size: 12px; font-weight: 300; color: $text-2; line-height: 1.65; }
+
+    &-tags {
+        display: flex; flex-wrap: wrap; gap: 6px; list-style: none;
+
+        li {
+            padding: 3px 9px; border: 1px solid $border;
+            font-size: 8.5px; letter-spacing: 0.14em;
+            text-transform: uppercase; color: $muted;
+            transition: color 0.2s, border-color 0.2s;
+        }
+    }
+
+    &:hover .cat-card-tags li { color: $text-2; border-color: rgba($gold, 0.22); }
+
+    &-link {
+        display: inline-flex; align-items: center; gap: 8px; margin-top: 6px;
+        padding-top: 14px; border-top: 1px solid $border;
+        @include eyebrow; font-size: 9.5px;
+        color: var(--accent, #{$gold}); text-decoration: none;
+        transition: gap 0.25s;
+        &:hover { gap: 14px; }
+    }
+}

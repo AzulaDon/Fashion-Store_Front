@@ -1,0 +1,27 @@
+// ── Footer ─────────────────────────────────────────────────────────────────
+@use '../abstracts/variables' as *;
+.footer {
+    border-top: 1px solid $border; padding: 68px $pad-x 32px;
+
+    &-inner {
+        max-width: 1200px; margin: 0 auto;
+        display: grid; grid-template-columns: 1fr 2fr; gap: 72px;
+        padding-bottom: 52px; border-bottom: 1px solid $border; margin-bottom: 24px;
+    }
+
+    &-tagline { font-size: 12px; font-weight: 300; color: $muted; line-height: 1.7; margin-top: 16px; }
+
+    &-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+
+    &-col {
+        h5 { @include eyebrow; font-size: 8.5px; margin-bottom: 18px; }
+        ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+        a  { font-size: 12px; font-weight: 300; color: $muted; text-decoration: none; transition: color 0.2s; &:hover { color: $gold; } }
+    }
+
+    &-bottom {
+        max-width: 1200px; margin: 0 auto;
+        display: flex; justify-content: space-between;
+        p { font-size: 10px; font-weight: 300; letter-spacing: 0.08em; color: $muted; }
+    }
+}
