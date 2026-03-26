@@ -3,7 +3,7 @@ const Footer = () => (
     <div className="footer-inner">
 
       <div>
-        <span className="logo-text">MAISON<em>LUX</em></span>
+        <span className="logo-text">SILHOUETTE<em>UX</em></span>
         <p className="footer-tagline">
           El arte de vestir bien,<br />al alcance de todos.
         </p>
@@ -11,7 +11,7 @@ const Footer = () => (
 
       <div className="footer-cols">
         {[
-          { heading:"Colecciones", links:["Dama","Caballero","Niños"] },
+          { heading:"Colecciones", links:["Dama","Caballero"] },
           { heading:"Empresa", links:["Nosotros","Blog"] },
           { heading:"Ayuda", links:["Envíos","Contacto"] },
         ].map(({ heading, links }) => (

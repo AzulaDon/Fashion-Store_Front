@@ -6,6 +6,56 @@
     border-bottom: 1px solid transparent;
     transition: background 0.4s, border-color 0.4s;
 
+    &-actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+
+        .icon-btn.cart {
+            position: relative;
+
+            .badge {
+                position: absolute;
+                top: -4px;
+                right: -4px;
+                background: $gold;
+                color: $dark;
+                font-size: 10px;
+                padding: 2px 6px;
+                border-radius: 50%;
+                font-weight: 600;
+            }
+        }
+
+        .icon-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition: all 0.25s ease;
+
+            .icon {
+                font-size: 20px;
+                color: $text-2;
+                transition: all 0.25s ease;
+            }
+
+            &:hover {
+                background: rgba($gold, 0.08);
+
+                .icon {
+                    color: $gold;
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+
     &.scrolled {
         background: rgba($dark, 0.92);
         backdrop-filter: blur(14px);
@@ -14,19 +64,73 @@
 
     &-inner { @include flex-between; width: 100%; }
 
+    // &-logo {
+    //     display: flex; align-items: center; gap: 10px; text-decoration: none;
+
+    //     .logo-mark {
+    //         width: 30px; height: 30px; border: 1px solid $gold;
+    //         @include flex-center;
+    //         font-family: $serif; font-size: 17px; color: $gold;
+    //     }
+
+    //     .logo-text {
+    //         font-size: 12px; font-weight: 500; letter-spacing: 0.18em;
+    //         text-transform: uppercase; color: $text;
+    //         em { font-style: normal; color: $gold; }
+    //     }
+    // }
+
     &-logo {
-        display: flex; align-items: center; gap: 10px; text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+
+        transition: all 0.3s ease;
 
         .logo-mark {
-            width: 30px; height: 30px; border: 1px solid $gold;
-            @include flex-center;
-            font-family: $serif; font-size: 17px; color: $gold;
+            width: 32px;
+            height: 32px;
+            border: 1px solid $gold;
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-family: $serif;
+            font-size: 16px;
+            color: $gold;
+
+            transition: all 0.3s ease;
         }
 
         .logo-text {
-            font-size: 12px; font-weight: 500; letter-spacing: 0.18em;
-            text-transform: uppercase; color: $text;
-            em { font-style: normal; color: $gold; }
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: $text;
+
+            transition: color 0.3s ease;
+
+            em {
+                font-style: normal;
+                color: $gold;
+                margin-left: 2px;
+            }
+        }
+
+        &:hover {
+            .logo-mark {
+                background: $gold;
+                color: $dark;
+                transform: scale(1.05);
+            }
+
+            .logo-text {
+                color: $gold;
+            }
         }
     }
 

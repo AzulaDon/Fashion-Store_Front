@@ -81,20 +81,12 @@ const CATS = {
       bg: "linear-gradient(160deg,#1a0f14,#3a1f28)",
       desc: "Looks elegantes y modernos.",
       items: ["Casual", "Elegante", "Office"],
-      pattern: "dots,"
+      pattern: "dots",
     },
   ],
 };
 
-// ── COMPONENTE ─────────────────────────
-
 export const Home = () => {
-//   const [gender, setGender] = useState(null);
-
-//   useEffect(() => {
-//     const g = localStorage.getItem("gender");
-//     setGender(g);
-//   }, []);
   const gender = localStorage.getItem("gender");
 
   console.log("Render home:", gender);
