@@ -20,8 +20,10 @@ function App() {
 
         {/* en caso de pruebas quitar la verificacion del logueo y dejar la ruta pura*/}
         <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
+        {/* <Route path="/" element= {<Home />} /> */}
         <Route path="/login" element={<Signup />} />
         <Route path="/select-gender" element={user ? <GenderSelector /> : <Navigate to="/login" />} />
+        {/* <Route path="/select-gender" element={ <GenderSelector />} /> */}
         <Route path="/colecciones" element={<Collections />} />
         <Route path="/novedades" element={<Novedades />} />
         <Route path="/ofertas" element={<Ofertas />} />
