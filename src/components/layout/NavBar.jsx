@@ -4,15 +4,22 @@ import useScrolled from "../../hooks/useScrolled";
 import { CiSearch } from "react-icons/ci";
 import { CiShoppingCart } from "react-icons/ci";
 import { CiUser } from "react-icons/ci";
+import { getUser } from "../../services/api";
+
+const user = getUser();
+const isAdmin = user?.rol === "ADMIN";
 
 const Navbar = () => {
     const scrolled = useScrolled(80)
     const [open, setOpen] = useState(false);
 
     const links = [
+        { to: "/inicio", label: "INICIO"},
         { to: "/colecciones", label: "COLECCIONES" },
-        { to: "/dama", label: "DAMA"},
-        { to: "/caballero", label: "CABALLERO"},
+        { to: "/novedades", label: "NOVEDADES"},
+        { to: "/ofertas", label: "OFERTAS"},
+        { to: "/select-gender", label: "VOLVER A LOS GENEROS"},
+        (isAdmin ? [{ to: "/admin", label: "ADMINISTRAR" }] : [])
     ];
 
     return (
@@ -20,7 +27,10 @@ const Navbar = () => {
             <div className="navbar-inner">
 
                 <Link to="/" className="navbar-logo">
-                    <span>SILHOUETTE</span>
+                    <span className="logo-mark">S</span>
+                    <span className="logo-text">
+                        SILHOUETTE<em>UX</em>
+                    </span>
                 </Link>
 
                 <ul className={`navbar-links ${open ? "open" : ""}`}>
@@ -33,15 +43,16 @@ const Navbar = () => {
 
                 <div className="navbar-actions">
                     <button className="icon-btn" aria-label="Search">
-                        <CiSearch />
+                        <CiSearch className="icon"/>
                     </button>
 
-                    <button className="icon-btn" aria-label="Cart">
-                        <CiShoppingCart/>
+                    <button className="icon-btn cart">
+                        <CiShoppingCart className="icon" />
+                        <span className="badge">2</span>
                     </button>
 
                     <button className="icon-btn" aria-label="Account">
-                        <CiUser />
+                        <CiUser className="icon"/>
                     </button>
 
                     <button 

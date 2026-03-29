@@ -1,13 +1,17 @@
 // src/styles/main.scss
 
 // ── Componentes ────────────────────────────────────────────────────────────
-@forward './componets/button';
-@forward './componets/cards';
-@forward './componets/footer';
-@forward './componets/highlights';
-@forward './componets/marquee';
-@forward './componets/navbar';
+@forward './components/button';
+@forward './components/cards';
+@forward './components/cta';
+@forward './components/footer';
+@forward './components/hero';
+@forward './components/highlights';
+@forward './components/marquee';
+@forward './components/navbar';
 
 // ── Páginas ────────────────────────────────────────────────────────────────
 @forward './pages/Home';
 @forward './pages/Signup';
+@forward './pages/Genderselector';
+@forward './pages/Admin';

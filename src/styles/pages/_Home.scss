@@ -17,8 +17,6 @@ body  { background: $dark; color: $text; font-family: $sans; -webkit-font-smooth
 }
 .reveal { @include reveal-base; }
 
-    
-// ── Responsive ─────────────────────────────────────────────────────────────
 @include respond-to-md {
     .hero,
     .categories,
