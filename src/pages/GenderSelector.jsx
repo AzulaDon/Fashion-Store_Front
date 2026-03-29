@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/pages/_Genderselector.scss";
  
@@ -20,19 +20,6 @@ const categories = [
 export default function GenderSelector() {
   const imageRefs = useRef([]);
   const navigate = useNavigate();
- 
-  // useEffect(() => {
-  //   const handleMouseMove = (e) => {
-  //     imageRefs.current.forEach((img) => {
-  //       if (img) {
-  //         img.style.transform = `translate(${e.pageX}px, ${e.pageY}px)`;
-  //       }
-  //     });
-  //   };
- 
-  //   document.addEventListener("mousemove", handleMouseMove);
-  //   return () => document.removeEventListener("mousemove", handleMouseMove);
-  // }, []);
 
   const handleSelect = (gender) => {
     console.log("CLICK:", gender);

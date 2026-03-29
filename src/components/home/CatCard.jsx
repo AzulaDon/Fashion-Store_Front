@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { getProductosPorPrenda } from "../../services/api";
+import { Link } from "react-router-dom";
 import useReveal from "../../hooks/useReveal";
-import { getProductosPorCategoria } from "../../services/api";
 import Patterns from "../UI/Patterns";
 
 const CatCard = ({ cat, index }) => {
@@ -8,7 +9,7 @@ const CatCard = ({ cat, index }) => {
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
-    getProductosPorCategoria(cat.id)
+    getProductosPorPrenda(cat.id)
       .then(data => setProductos(data))
       .catch(() => {});
   }, [cat.id]);
@@ -22,7 +23,10 @@ const CatCard = ({ cat, index }) => {
     >
       <div className="cat-card-visual">
         <div className="cat-card-visual-bg" style={{ background: cat.bg }} />
-        {Patterns[cat.pattern](cat.accent)}
+        
+        {/* 🔥 seguro */}
+        {Patterns[cat.pattern] && Patterns[cat.pattern](cat.accent)}
+
         <div className="cat-card-visual-overlay" />
         <span className="cat-card-num">0{index + 1}</span>
       </div>
@@ -36,13 +40,15 @@ const CatCard = ({ cat, index }) => {
           {cat.items.map(i => <li key={i}>{i}</li>)}
         </ul>
 
-        {productos.length > 0 && (
-          <p className="cat-card-count">
-            {productos.length} piezas disponibles
-          </p>
-        )}
+        <p className="cat-card-count">
+          {productos.length > 0 
+            ? `${productos.length} piezas disponibles` 
+            : "Sin productos"}
+        </p>
 
-        <a href="#" className="cat-card-link">Ver colección</a>
+        <Link to={`/categoria/${cat.id}`} className="cat-card-link">
+          Ver colección
+        </Link>
       </div>
     </div>
   );

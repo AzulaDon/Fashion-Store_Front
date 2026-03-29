@@ -13,7 +13,7 @@ const Categories = ({ cats }) => {
       </div>
 
       <div className="cat-grid">
-        {cats.map((cat, i) => (
+        {(cats || []).map((cat, i) => (
           <CatCard key={cat.id} cat={cat} index={i} />
         ))}
       </div>
