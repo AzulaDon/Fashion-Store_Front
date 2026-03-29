@@ -1,0 +1,133 @@
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 40px;
+
+  padding: 80px 60px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+// ───────── CARD ─────────
+.product-card {
+  position: relative;
+  background: #0c0c0c;
+  border: 1px solid rgba(255,255,255,0.05);
+  overflow: hidden;
+
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+// hover general
+.product-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(201,169,110,0.5);
+}
+
+// ───────── IMAGEN ─────────
+.product-img {
+  height: 320px;
+  background: linear-gradient(160deg, #111, #1a1a1a);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+  position: relative;
+}
+
+// efecto overlay lujo
+.product-img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  opacity: 0.7;
+}
+
+// ───────── INFO ─────────
+.product-info {
+  padding: 18px;
+}
+
+.product-info h4 {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.product-info p {
+  font-size: 14px;
+  color: #c9a96e;
+}
+
+// ───────── BOTÓN HOVER ─────────
+.product-actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(6px);
+
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+
+  transform: translateY(100%);
+  transition: 0.4s;
+}
+
+.product-card:hover .product-actions {
+  transform: translateY(0);
+}
+
+// botón lujo
+.product-actions button {
+  border: 1px solid #c9a96e;
+  color: #c9a96e;
+  background: transparent;
+
+  padding: 8px 16px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.product-actions button:hover {
+  background: #c9a96e;
+  color: black;
+}
+
+// ───────── BADGE OFERTA ─────────
+.product-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+
+  background: #c9a96e;
+  color: black;
+
+  font-size: 10px;
+  padding: 4px 8px;
+  letter-spacing: 0.1em;
+}
+
+// ───────── RESPONSIVE ─────────
+@media (max-width: 768px) {
+  .products-grid {
+    padding: 60px 20px;
+    gap: 20px;
+  }
+
+  .product-img {
+    height: 240px;
+  }
+}

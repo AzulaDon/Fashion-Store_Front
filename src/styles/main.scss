@@ -9,6 +9,8 @@
 @forward './components/highlights';
 @forward './components/marquee';
 @forward './components/navbar';
+@forward './components/productCard';
+@forward './components/adminForm';
 
 // ── Páginas ────────────────────────────────────────────────────────────────
 @forward './pages/Home';
@@ -19,3 +21,4 @@
 @forward './pages/Novedades';
 @forward './pages/Ofertas';
 @forward './pages/cart';
+@forward './pages/AdminProductos';

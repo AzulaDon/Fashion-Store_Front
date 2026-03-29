@@ -12,7 +12,7 @@ const useColecciones = () => {
       .then(data => {
 
         const mapped = data.map((c, i) => ({
-          id: c.id,
+          id: c.id || c.coleccionId,
           label: c.coleccion,
           desc: `Descubre nuestra colección de ${c.coleccion}`,
           
