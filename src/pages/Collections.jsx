@@ -32,8 +32,8 @@ const Collections = () => {
         <div className="collections-grid">
             {colecciones.map((cat) => (
             <Link
-                key={`${cat.id}-${cat.label}`} // 🔥 evita error de keys
-                to={`/coleccion/${cat.id}`} // 👈 CAMBIO IMPORTANTE
+                key={`${cat.id}-${cat.label}`}
+                to={`/coleccion/${cat.id}`}
                 className="collection-card"
             >
                 <div className="collection-content">

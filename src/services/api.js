@@ -36,7 +36,6 @@ export const login = async (email, password) => {
 
   if (data && typeof data === "object") {
     localStorage.setItem("user", JSON.stringify(data));
-    // ✅ No intentamos guardar token porque el backend no lo devuelve aún
   }
 
   return data;
@@ -54,31 +53,26 @@ export const register = async (email, password, phone) => {
     }),
   });
 
-  // ✅ handleResponse ya parsea el JSON — no llames .json() de nuevo
   const data = await handleResponse(res);
 
-  // ✅ Si el registro también devuelve token, guárdalo
   localStorage.setItem("user", JSON.stringify(data));
   if (data.token) localStorage.setItem("token", data.token);
 
   return data;
 };
 
-// ✅ logout limpia todo
 export const logout = () => {
   localStorage.removeItem("token");
-  localStorage.removeItem("user");    // ← faltaba esto
-  localStorage.removeItem("gender");  // limpia género también
+  localStorage.removeItem("user");   
+  localStorage.removeItem("gender"); 
 };
 
-// --- Productos (sin cambios) ---
-// 🔥 obtener todos los detalles (productos reales)
+
 export const getProductos = async () => {
   const res = await fetch(`${BASE_URL}/prendas-detalle`);
   return handleResponse(res);
 };
 
-// 🔥 por ID
 export const getProductoById = async (id) => {
   const res = await fetch(`${BASE_URL}/prendas-detalle/${id}`);
   return handleResponse(res);
@@ -86,6 +80,22 @@ export const getProductoById = async (id) => {
 
 export const getProductosPorPrenda = async (prendaId) => {
   const res = await fetch(`${BASE_URL}/prendas-detalle/prenda/${prendaId}`);
+  return handleResponse(res);
+};
+
+export const createProducto = async (data) => {
+  const res = await fetch(`${BASE_URL}/prendas`, {
+    method: "POST",
+    headers: headers(true),
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) throw new Error("Error al crear prenda");
+  return res.text(); // ← texto en lugar de .json()
+};
+
+export const getProductosPorColeccion = async (id) => {
+  const res = await fetch(`${BASE_URL}/colecciones/${id}/prenda`);
   return handleResponse(res);
 };
 
@@ -125,5 +135,13 @@ export const createCompraDetalle = async (data) => {
     body: JSON.stringify(data),
   });
   return handleResponse(res);
+};
+
+export const deleteProducto = async (id) => {
+  const res = await fetch(`${BASE_URL}/prendas/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) throw new Error("Error al eliminar");
 };
 

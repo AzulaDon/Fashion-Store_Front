@@ -30,7 +30,9 @@ const Ofertas = () => {
             <div key={o.id} className="offer-card">
               <h3>{o.nombre}</h3>
               <p>{o.descripcion}</p>
-              <span>{o.descuento}% OFF</span>
+              <span>
+                {(o.descuento || o.porcentaje || o.descuentoPorcentaje || 0)}% OFF
+              </span>
             </div>
           ))}
         </div>

@@ -4,3 +4,4 @@ export const logout = () => {
   localStorage.removeItem("gender");
   window.location.href = "/login";
 };
+

@@ -6,7 +6,6 @@ import GenderSelector from './pages/GenderSelector';
 import Collections from './pages/Collections';
 import Novedades from './pages/Novedades';
 import Ofertas from './pages/Ofertas';
-import ProductoDetalle from './pages/ProductoDetalle';
 import Admin from "./pages/admin/Admin";
 import ColeccionDetalle from "./pages/ColeccionDetalle";
 import Cart from './pages/Cart';
@@ -24,7 +23,6 @@ function App() {
         <Route path="/coleccion/:id" element={<ColeccionDetalle />} />
         <Route path="/novedades" element={<Novedades />} />
         <Route path="/ofertas" element={<Ofertas />} />
-        <Route path="/producto/:id" element={<ProductoDetalle />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>} />
       </Routes>

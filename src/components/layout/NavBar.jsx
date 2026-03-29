@@ -12,7 +12,7 @@ const Navbar = () => {
     const { totalItems } = useCart();
 
     const user = getUser();
-    const isAdmin = user?.rol === 1;
+    const isAdmin = user?.rolId === 1;
 
     const links = [
         { to: "/colecciones",    label: "COLECCIONES" },
