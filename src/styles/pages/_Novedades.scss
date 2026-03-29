@@ -1,0 +1,125 @@
+.products-page {
+  padding: 120px 60px 80px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+// ───────── HEADER ─────────
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: #888;
+    margin-bottom: 10px;
+  }
+
+  .serif-title {
+    font-size: 48px;
+    font-weight: 500;
+    color: #fff;
+
+    em {
+      font-style: italic;
+      color: #c9a96e;
+    }
+  }
+}
+
+// ───────── GRID ─────────
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+}
+
+// ───────── CARD ─────────
+.product-card {
+  position: relative;
+  overflow: hidden;
+
+  background: #0c0c0c;
+  border: 1px solid rgba(255,255,255,0.05);
+
+  transition: all 0.4s ease;
+
+  cursor: pointer;
+
+  // glow dorado
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(201,169,110,0.15), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    border-color: rgba(201,169,110,0.4);
+
+    &::before {
+      opacity: 1;
+    }
+
+    .product-img {
+      transform: scale(1.05);
+    }
+  }
+}
+
+// ───────── IMAGEN ─────────
+.product-img {
+  height: 260px;
+  background: linear-gradient(135deg, #1a1a1a, #111);
+  transition: transform 0.4s ease;
+}
+
+// ───────── INFO ─────────
+.product-info {
+  padding: 18px;
+
+  h4 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    letter-spacing: 0.03em;
+  }
+
+  p {
+    font-size: 14px;
+    color: #c9a96e;
+    margin-bottom: 6px;
+  }
+
+  span {
+    font-size: 11px;
+    color: #777;
+    letter-spacing: 0.1em;
+  }
+}
+
+// ───────── LOADING ─────────
+.loading {
+  text-align: center;
+  padding: 150px;
+  color: white;
+}
+
+// ───────── RESPONSIVE ─────────
+@media (max-width: 768px) {
+  .products-page {
+    padding: 100px 20px;
+  }
+
+  .serif-title {
+    font-size: 32px;
+  }
+
+  .product-img {
+    height: 200px;
+  }
+}

@@ -9,93 +9,103 @@ const headers = (auth = false) => ({
 
 const handleResponse = async (res) => {
   const data = await res.json().catch(() => null);
-
   if (!res.ok) {
     console.error("API ERROR:", data);
     throw new Error(data?.message || `Error ${res.status}`);
   }
-
   return data;
 };
 
 export const getUser = () => {
-  const user = localStorage.getItem("user");
-  return user ? JSON.parse(user) : null;
+  try {
+    const user = localStorage.getItem("user");
+    return user ? JSON.parse(user) : null;
+  } catch {
+    return null;
+  }
 };
 
 export const login = async (email, password) => {
-  const res = await fetch(`${BASE_URL}/auth/login`, {
+  const res = await fetch(`${BASE_URL}/usuarios/login`, {
     method: "POST",
-    headers: headers(),
-    body: JSON.stringify({ email, password }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ correo: email, clave: password }),
   });
 
   const data = await handleResponse(res);
 
-  if (data.token) {
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("user", JSON.stringify(data.user));
+  if (data && typeof data === "object") {
+    localStorage.setItem("user", JSON.stringify(data));
+    // ✅ No intentamos guardar token porque el backend no lo devuelve aún
   }
+
   return data;
 };
 
-export const register = async (nombre, email, password) => {
-  const res = await fetch(`${BASE_URL}/auth/register`, {
+export const register = async (email, password, phone) => {
+  const res = await fetch(`${BASE_URL}/usuarios`, {
     method: "POST",
-    headers: headers(),
-    body: JSON.stringify({ nombre, email, password }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      correo: email,
+      clave: password,
+      telefono: phone,
+      rolId: 5
+    }),
   });
 
+  // ✅ handleResponse ya parsea el JSON — no llames .json() de nuevo
   const data = await handleResponse(res);
 
+  // ✅ Si el registro también devuelve token, guárdalo
+  localStorage.setItem("user", JSON.stringify(data));
   if (data.token) localStorage.setItem("token", data.token);
 
   return data;
 };
 
-export const logout = async () => {
-  try {
-    await fetch(`${BASE_URL}/auth/logout`, {
-      method: "POST",
-      headers: headers(true),
-    });
-  } catch (_) {}
-
+// ✅ logout limpia todo
+export const logout = () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("user");    // ← faltaba esto
+  localStorage.removeItem("gender");  // limpia género también
 };
 
+// --- Productos (sin cambios) ---
+// 🔥 obtener todos los detalles (productos reales)
 export const getProductos = async () => {
-  const res = await fetch(`${BASE_URL}/productos`);
+  const res = await fetch(`${BASE_URL}/prendas-detalle`);
   return handleResponse(res);
 };
 
-export const getProductosPorGenero = async (genero) => {
-  const res = await fetch(`${BASE_URL}/productos?genero=${genero}`);
-  return handleResponse(res);
-};
-
-export const getProductosPorCategoria = async (categoriaId) => {
-  const res = await fetch(`${BASE_URL}/productos?categoria=${categoriaId}`);
-  return handleResponse(res);
-};
-
+// 🔥 por ID
 export const getProductoById = async (id) => {
-  const res = await fetch(`${BASE_URL}/productos/${id}`);
+  const res = await fetch(`${BASE_URL}/prendas-detalle/${id}`);
   return handleResponse(res);
 };
 
-export const getNovedades = async () => {
-  const res = await fetch(`${BASE_URL}/productos/novedades`);
+export const getProductosPorPrenda = async (prendaId) => {
+  const res = await fetch(`${BASE_URL}/prendas-detalle/prenda/${prendaId}`);
   return handleResponse(res);
 };
 
-export const getOfertas = async () => {
-  const res = await fetch(`${BASE_URL}/productos/ofertas`);
+export const getPrendas = async () => {
+  const res = await fetch(`${BASE_URL}/prendas`);
   return handleResponse(res);
 };
 
-export const createProducto = async (data) => {
-  const res = await fetch(`${BASE_URL}/productos`, {
+export const getPrendaById = async (id) => {
+  const res = await fetch(`${BASE_URL}/prendas/${id}`);
+  return handleResponse(res);
+};
+
+export const getCompras = async () => {
+  const res = await fetch(`${BASE_URL}/compras`);
+  return handleResponse(res);
+};
+
+export const createCompra = async (data) => {
+  const res = await fetch(`${BASE_URL}/compras`, {
     method: "POST",
     headers: headers(true),
     body: JSON.stringify(data),
@@ -103,31 +113,17 @@ export const createProducto = async (data) => {
   return handleResponse(res);
 };
 
-export const updateProducto = async (id, data) => {
-  const res = await fetch(`${BASE_URL}/productos/${id}`, {
-    method: "PUT",
+export const getCompraDetalle = async (compraId) => {
+  const res = await fetch(`${BASE_URL}/compras-detalle/compra/${compraId}`);
+  return handleResponse(res);
+};
+
+export const createCompraDetalle = async (data) => {
+  const res = await fetch(`${BASE_URL}/compras-detalle`, {
+    method: "POST",
     headers: headers(true),
     body: JSON.stringify(data),
   });
   return handleResponse(res);
 };
 
-export const deleteProducto = async (id) => {
-  const res = await fetch(`${BASE_URL}/productos/${id}`, {
-    method: "DELETE",
-    headers: headers(true),
-  });
-  return handleResponse(res);
-};
-
-//extra
-
-export const buscarProductos = async (query) => {
-  const res = await fetch(`${BASE_URL}/productos/search?q=${query}`);
-  return handleResponse(res);
-};
-
-export const getProductosPorPrecio = async (min, max) => {
-  const res = await fetch(`${BASE_URL}/productos?min=${min}&max=${max}`);
-  return handleResponse(res);
-};

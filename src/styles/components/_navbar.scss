@@ -14,16 +14,29 @@
         .icon-btn.cart {
             position: relative;
 
-            .badge {
+            // .badge {
+            //     position: absolute;
+            //     top: -4px;
+            //     right: -4px;
+            //     background: $gold;
+            //     color: $dark;
+            //     font-size: 10px;
+            //     padding: 2px 6px;
+            //     border-radius: 50%;
+            //     font-weight: 600;
+            // }
+
+            .cart-badge {
                 position: absolute;
-                top: -4px;
-                right: -4px;
-                background: $gold;
-                color: $dark;
+                top: -6px;
+                right: -6px;
+
+                background: #c9a96e;
+                color: black;
+
                 font-size: 10px;
-                padding: 2px 6px;
+                padding: 3px 6px;
                 border-radius: 50%;
-                font-weight: 600;
             }
         }
 
@@ -63,22 +76,6 @@
     }
 
     &-inner { @include flex-between; width: 100%; }
-
-    // &-logo {
-    //     display: flex; align-items: center; gap: 10px; text-decoration: none;
-
-    //     .logo-mark {
-    //         width: 30px; height: 30px; border: 1px solid $gold;
-    //         @include flex-center;
-    //         font-family: $serif; font-size: 17px; color: $gold;
-    //     }
-
-    //     .logo-text {
-    //         font-size: 12px; font-weight: 500; letter-spacing: 0.18em;
-    //         text-transform: uppercase; color: $text;
-    //         em { font-style: normal; color: $gold; }
-    //     }
-    // }
 
     &-logo {
         display: flex;
