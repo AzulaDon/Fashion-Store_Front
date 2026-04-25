@@ -11,7 +11,6 @@ const PrivateRoute = ({ children }) => {
 
     const user = JSON.parse(raw);
 
-    // ✅ Valida por usuarioId ya que el backend no devuelve token aún
     if (!user || !user.usuarioId) {
       localStorage.removeItem("user");
       return <Navigate to="/login" replace />;

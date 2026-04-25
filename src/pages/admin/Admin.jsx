@@ -1,4 +1,3 @@
-// ✅ fix — usa rolId === 1
 import { Navigate } from "react-router-dom";
 import { getUser } from "../../services/api";
 import AdminDashboard from "./AdminDashboard";

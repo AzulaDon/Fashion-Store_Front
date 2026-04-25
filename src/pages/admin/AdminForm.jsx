@@ -6,7 +6,7 @@ const AdminForm = ({ onSave, onCancel }) => {
     generoId: "",
     temporadaId: "",
     coleccionId: "",
-    // --- Campos del detalle ---
+    
     colorId: "",
     tallaId: "",
     precio: "",

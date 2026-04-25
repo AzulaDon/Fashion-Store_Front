@@ -24,7 +24,6 @@ const CatCard = ({ cat, index }) => {
       <div className="cat-card-visual">
         <div className="cat-card-visual-bg" style={{ background: cat.bg }} />
         
-        {/* 🔥 seguro */}
         {Patterns[cat.pattern] && Patterns[cat.pattern](cat.accent)}
 
         <div className="cat-card-visual-overlay" />

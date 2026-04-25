@@ -5,7 +5,7 @@ import { getPrendas, deleteProducto } from "../../services/api";
 
 const AdminProductos = () => {
   const [productos, setProductos] = useState([]);
-  const [showForm, setShowForm] = useState(false); // ✅ controla si se muestra el form
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     getPrendas()

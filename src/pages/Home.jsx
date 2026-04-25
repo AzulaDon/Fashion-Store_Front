@@ -8,7 +8,7 @@ import Cta from "../components/home/Cta";
 import NavBar from "../components/layout/NavBar";
 import Hero from "../components/layout/HeroBanner";
 import Footer from "../components/layout/Footer";
-import Strip from "../components/home/strip";
+import Strip from "../components/home/Strip";
 
 // ── CONFIG DINÁMICA ─────────────────────────
 

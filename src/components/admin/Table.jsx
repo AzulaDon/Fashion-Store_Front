@@ -8,7 +8,7 @@ const Table = ({ columns, data = [], className = "" }) => {
 
   const pageSize = 5;
 
-  // 🔍 SEARCH
+  
   const filteredData = useMemo(() => {
     return data.filter(row =>
       Object.values(row).some(val =>
@@ -17,7 +17,7 @@ const Table = ({ columns, data = [], className = "" }) => {
     );
   }, [data, search]);
 
-  // 🔃 SORT
+  
   const sortedData = useMemo(() => {
     if (!sortKey) return filteredData;
 
@@ -28,7 +28,7 @@ const Table = ({ columns, data = [], className = "" }) => {
     });
   }, [filteredData, sortKey, sortDir]);
 
-  // 📄 PAGINATION
+  
   const totalPages = Math.ceil(sortedData.length / pageSize);
 
   const paginatedData = sortedData.slice(
@@ -36,7 +36,7 @@ const Table = ({ columns, data = [], className = "" }) => {
     page * pageSize
   );
 
-  // 🔃 SORT CLICK
+  
   const handleSort = (key) => {
     if (sortKey === key) {
       setSortDir(prev => (prev === "asc" ? "desc" : "asc"));

@@ -8,7 +8,7 @@ const useCategorias = () => {
   useEffect(() => {
     getPrendas()
       .then(data => {
-        // 🔥 transformación UI
+        
         const mapped = data.map(p => ({
           id: p.prendaId,
           label: p.nombre,
